@@ -1,27 +1,12 @@
-public class HighScores
+#pragma warning disable CA1050 // Declare types in namespaces
+public class HighScores(List<int> list)
+#pragma warning restore CA1050 // Declare types in namespaces
 {
-    public HighScores(List<int> list)
-    {
-        throw new NotImplementedException("You need to implement this method.");
-    }
+    public List<int> Scores() => list;
 
-    public List<int> Scores()
-    {
-        throw new NotImplementedException("You need to implement this method.");
-    }
+    public int Latest() => list.Last();
 
-    public int Latest()
-    {
-        throw new NotImplementedException("You need to implement this method.");
-    }
+    public int PersonalBest() => list.Max();
 
-    public int PersonalBest()
-    {
-        throw new NotImplementedException("You need to implement this method.");
-    }
-
-    public List<int> PersonalTopThree()
-    {
-        throw new NotImplementedException("You need to implement this method.");
-    }
+    public List<int> PersonalTopThree() => [.. list.OrderDescending().Take(3)];
 }
