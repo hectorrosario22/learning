@@ -1,0 +1,118 @@
+<div class="add-recipe-container">
+  <div class="add-recipe-header">
+    <h1 class="add-recipe-title">Add New Recipe</h1>
+    <p class="add-recipe-subtitle">Create a delicious recipe and share it with others</p>
+  </div>
+
+  <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()" class="recipe-form">
+    <div class="form-group">
+      <label for="name" class="form-label">Recipe Name *</label>
+      <input
+        id="name"
+        type="text"
+        formControlName="name"
+        placeholder="e.g., Chocolate Cake"
+        class="form-input"
+        required
+      />
+      <span class="form-hint">Give your recipe a memorable name</span>
+    </div>
+
+    <div class="form-group">
+      <label for="description" class="form-label">Description *</label>
+      <textarea
+        id="description"
+        formControlName="description"
+        placeholder="Describe your recipe in a few words..."
+        class="form-textarea"
+        rows="4"
+        required
+      ></textarea>
+      <span class="form-hint">A brief description of your recipe</span>
+    </div>
+
+    <div class="form-group">
+      <label for="imgUrl" class="form-label">Image URL</label>
+      <input
+        id="imgUrl"
+        type="url"
+        formControlName="imgUrl"
+        placeholder="https://example.com/image.jpg"
+        class="form-input"
+      />
+      <span class="form-hint">Link to an image of your recipe</span>
+    </div>
+
+    <div class="form-group ingredients-section">
+      <label class="form-label">Ingredients *</label>
+      <span class="form-hint">Add each ingredient with quantity and unit</span>
+
+      <div class="add-ingredient-form">
+        <div class="ingredient-input-group">
+          <input
+            type="text"
+            placeholder="Ingredient name"
+            class="form-input ingredient-name"
+            #ingredientName
+          />
+          <input
+            type="number"
+            placeholder="Quantity"
+            class="form-input ingredient-quantity"
+            step="0.01"
+            min="0"
+            #ingredientQuantity
+          />
+          <input
+            type="text"
+            placeholder="Unit"
+            class="form-input ingredient-unit"
+            #ingredientUnit
+          />
+        </div>
+        <button
+          type="button"
+          class="btn-add-ingredient"
+          (click)="addIngredient(ingredientName, ingredientQuantity, ingredientUnit)"
+        >
+          + Add
+        </button>
+      </div>
+
+      @if (ingredients() && ingredients().length > 0) {
+        <div class="ingredients-list">
+          <div class="ingredients-header">
+            <span class="col-name">Ingredient</span>
+            <span class="col-qty">Qty</span>
+            <span class="col-unit">Unit</span>
+            <span class="col-action">Action</span>
+          </div>
+          @for (ingredient of ingredients(); track $index) {
+            <div class="ingredient-item">
+              <span class="col-name">{{ ingredient.name }}</span>
+              <span class="col-qty">{{ ingredient.quantity }}</span>
+              <span class="col-unit">{{ ingredient.unit }}</span>
+              <button
+                type="button"
+                class="btn-remove-ingredient"
+                (click)="removeIngredient($index)"
+                aria-label="Remove ingredient"
+              >
+                ✕
+              </button>
+            </div>
+          }
+        </div>
+      } @else {
+        <div class="empty-ingredients">
+          <p>No ingredients added yet. Add your first ingredient above.</p>
+        </div>
+      }
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn-submit">Save Recipe</button>
+      <a routerLink="/recipes" class="btn-cancel">Cancel</a>
+    </div>
+  </form>
+</div>

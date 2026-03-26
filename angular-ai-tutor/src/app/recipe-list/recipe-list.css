@@ -5,6 +5,41 @@
   width: 100%;
 }
 
+/* Add Recipe Button */
+.btn-add-recipe {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  color: white;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
+  width: fit-content;
+  border: none;
+}
+
+.btn-add-recipe:hover {
+  background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+  box-shadow: 0 4px 16px rgba(37, 99, 235, 0.4);
+  transform: translateY(-2px);
+}
+
+.btn-add-recipe:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2), 0 2px 8px rgba(37, 99, 235, 0.3);
+}
+
+.btn-add-recipe:active {
+  transform: translateY(0);
+}
+
 /* Search Section */
 .search-section {
   display: flex;
