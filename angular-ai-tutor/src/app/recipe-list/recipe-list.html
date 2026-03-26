@@ -14,20 +14,23 @@
   <!-- Recipes Grid -->
   <div class="recipes-grid">
     @for (recipe of recipes(); track recipe.name) {
-      <a [routerLink]="['/recipes', recipe.id]" class="recipe-card-link">
-        <div class="recipe-card">
-          <img [src]="recipe.imgUrl" [alt]="recipe.name" class="recipe-card-image" />
-          <div class="recipe-card-content">
-            <div class="recipe-card-header">
-              <h3 class="recipe-card-title">{{ recipe.name }}</h3>
-              @if (recipe.isFavorite) {
-                <span class="recipe-card-favorite">★</span>
-              }
-            </div>
-            <p class="recipe-card-description">{{ recipe.description }}</p>
-          </div>
-        </div>
-      </a>
+      <mat-card appearance="outlined">
+        <mat-card-header>
+          <mat-card-title>
+            {{ recipe.name }}
+            @if (recipe.isFavorite) {
+              <mat-icon color="warn">star</mat-icon>
+            }
+          </mat-card-title>
+        </mat-card-header>
+        <img mat-card-image [src]="recipe.imgUrl" [alt]="recipe.name" />
+        <mat-card-content>
+          <p>{{ recipe.description }}</p>
+        </mat-card-content>
+        <mat-card-actions>
+          <a mat-button [routerLink]="['/recipes', recipe.id]">View Details</a>
+        </mat-card-actions>
+      </mat-card>
     }
   </div>
 </div>
