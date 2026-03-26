@@ -1,39 +1,32 @@
 <div class="recipe-list-container">
-  <!-- Sidebar with filter and list -->
-  <aside class="recipe-sidebar">
-    <!-- Search Filter -->
-    <div class="search-section">
-      <h2 class="search-title">Recipes</h2>
-      <input
-        type="search"
-        placeholder="Search recipes..."
-        class="search-input"
-        [(ngModel)]="searchTerm"
-      />
-    </div>
+  <!-- Search Filter -->
+  <div class="search-section">
+    <h2 class="search-title">Search Recipes</h2>
+    <input
+      type="search"
+      placeholder="Search recipes..."
+      class="search-input"
+      [(ngModel)]="searchTerm"
+    />
+  </div>
 
-    <!-- Recipes List -->
-    <div class="recipes-list">
-      @for (recipe of recipes(); track recipe.name) {
-        <button
-          (click)="switchToRecipe(recipe)"
-          class="recipe-card"
-          [class.recipe-card-active]="currentRecipe() === recipe"
-        >
+  <!-- Recipes Grid -->
+  <div class="recipes-grid">
+    @for (recipe of recipes(); track recipe.name) {
+      <a [routerLink]="['/recipes', recipe.id]" class="recipe-card-link">
+        <div class="recipe-card">
+          <img [src]="recipe.imgUrl" [alt]="recipe.name" class="recipe-card-image" />
           <div class="recipe-card-content">
-            <h3 class="recipe-card-title">{{ recipe.name }}</h3>
+            <div class="recipe-card-header">
+              <h3 class="recipe-card-title">{{ recipe.name }}</h3>
+              @if (recipe.isFavorite) {
+                <span class="recipe-card-favorite">★</span>
+              }
+            </div>
             <p class="recipe-card-description">{{ recipe.description }}</p>
           </div>
-          @if (recipe.isFavorite) {
-            <span class="recipe-card-favorite">★</span>
-          }
-        </button>
-      }
-    </div>
-  </aside>
-
-  <!-- Main content with recipe details -->
-  <main class="recipe-main-content">
-    <app-recipe-detail [recipe]="currentRecipe()" />
-  </main>
+        </div>
+      </a>
+    }
+  </div>
 </div>

@@ -1,49 +1,56 @@
 <div class="recipe-container">
-  <!-- Image at the top, full width -->
-  <div class="recipe-image-wrapper">
-    <img [src]="recipe().imgUrl" [alt]="recipe().name" class="recipe-image" />
-  </div>
-
-  <!-- Title and description -->
-  <div class="recipe-header">
-    <h2 class="recipe-title">
-      {{ recipe().name }}
-      @if (recipe().isFavorite) {
-        <span class="favorite-icon">★</span>
-      }
-    </h2>
-    <p class="recipe-description">
-      {{ recipe().description }}
-    </p>
-  </div>
-
-  <!-- Servings section -->
-  <div class="servings-section">
-    <label class="servings-label">
-      Servings: <span class="servings-value">{{ servings() }}</span>
-    </label>
-    <div class="servings-buttons">
-      <button (click)="updateServings('decrease')" class="servings-btn servings-btn-decrease">
-        −
-      </button>
-      <button (click)="updateServings('increase')" class="servings-btn servings-btn-increase">
-        +
-      </button>
-    </div>
-  </div>
-
-  <!-- Ingredients -->
-  <div class="ingredients-sidebar">
-    <h3 class="ingredients-title">Ingredients</h3>
-    <div class="ingredients-list">
-      @for (ingredient of ingredients(); track ingredient.name) {
-        <div class="ingredient-item">
-          <span class="ingredient-name">
-            {{ ingredient.name }}
-          </span>
-          <span class="ingredient-quantity"> {{ ingredient.quantity }} {{ ingredient.unit }} </span>
+  <div class="recipe-content">
+    <!-- Main content section -->
+    <div class="recipe-main">
+      <!-- Image and title section -->
+      <div class="recipe-header-section">
+        <div class="recipe-image-wrapper">
+          <img [src]="recipe().imgUrl" [alt]="recipe().name" class="recipe-image" />
         </div>
-      }
+
+        <div class="recipe-header">
+          <h2 class="recipe-title">
+            {{ recipe().name }}
+            @if (recipe().isFavorite) {
+              <span class="favorite-icon">★</span>
+            }
+          </h2>
+          <p class="recipe-description">
+            {{ recipe().description }}
+          </p>
+        </div>
+      </div>
     </div>
+
+    <!-- Ingredients sidebar -->
+    <aside class="ingredients-sidebar">
+      <h3 class="ingredients-title">Ingredients</h3>
+
+      <!-- Servings section -->
+      <div class="servings-section">
+        <label class="servings-label">
+          Servings: <span class="servings-value">{{ servings() }}</span>
+        </label>
+        <div class="servings-buttons">
+          <button (click)="updateServings('decrease')" class="servings-btn servings-btn-decrease">
+            −
+          </button>
+          <button (click)="updateServings('increase')" class="servings-btn servings-btn-increase">
+            +
+          </button>
+        </div>
+      </div>
+
+      <div class="ingredients-list">
+        @for (ingredient of ingredients(); track ingredient.name) {
+          <div class="ingredient-item">
+            <span class="ingredient-name">
+              {{ ingredient.name }}
+            </span>
+            <span class="ingredient-quantity"> {{ ingredient.quantity }} {{ ingredient.unit }} </span>
+          </div>
+        }
+      </div>
+    </aside>
   </div>
 </div>
