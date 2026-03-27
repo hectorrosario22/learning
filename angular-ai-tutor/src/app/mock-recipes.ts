@@ -5,6 +5,7 @@ export const MOCK_RECIPES: RecipeModel[] = [
     id: 1,
     name: 'Spaghetti Carbonara',
     description: 'A classic Italian pasta dish.',
+    authorEmail: 'chef@example.com',
     imgUrl: 'https://placehold.co/300x200?text=Spaghetti+Carbonara',
     isFavorite: true,
     ingredients: [
@@ -19,6 +20,7 @@ export const MOCK_RECIPES: RecipeModel[] = [
     id: 2,
     name: 'Caprese Salad',
     description: 'A simple and refreshing Italian salad.',
+    authorEmail: 'chef2@example.com',
     imgUrl: 'https://placehold.co/300x200?text=Caprese+Salad',
     isFavorite: false,
     ingredients: [

@@ -4,16 +4,15 @@
     <p class="add-recipe-subtitle">Create a delicious recipe and share it with others</p>
   </div>
 
-  <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()" class="recipe-form">
+  <form (submit)="onSubmit($event)" class="recipe-form" novalidate>
     <div class="form-group">
       <label for="name" class="form-label">Recipe Name *</label>
       <input
         id="name"
         type="text"
-        formControlName="name"
+        [formField]="recipeForm.name"
         placeholder="e.g., Chocolate Cake"
         class="form-input"
-        required
       />
       <span class="form-hint">Give your recipe a memorable name</span>
     </div>
@@ -23,10 +22,9 @@
       <input
         id="author-email"
         type="email"
-        formControlName="authorEmail"
+        [formField]="recipeForm.authorEmail"
         placeholder="e.g., chef@example.com"
         class="form-input"
-        required
       />
     </div>
 
@@ -34,11 +32,10 @@
       <label for="description" class="form-label">Description *</label>
       <textarea
         id="description"
-        formControlName="description"
+        [formField]="recipeForm.description"
         placeholder="Describe your recipe in a few words..."
         class="form-textarea"
         rows="4"
-        required
       ></textarea>
       <span class="form-hint">A brief description of your recipe</span>
     </div>
@@ -48,7 +45,7 @@
       <input
         id="imgUrl"
         type="url"
-        formControlName="imgUrl"
+        [formField]="recipeForm.imgUrl"
         placeholder="https://example.com/image.jpg"
         class="form-input"
       />

@@ -1,29 +1,34 @@
 import { Component, inject, signal } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { form, FormField, required } from '@angular/forms/signals';
 import { Router, RouterLink } from '@angular/router';
 import { Ingredient, RecipeModel } from '../models';
 import { RecipeService } from '../recipe.service';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({
-  selector: 'app-add-recipe',
-  imports: [ReactiveFormsModule, RouterLink, MatButtonModule],
-  templateUrl: './add-recipe.html',
-  styleUrl: './add-recipe.css',
+  selector: 'app-add-recipe-signals',
+  imports: [FormField, RouterLink, MatButtonModule],
+  templateUrl: './add-recipe-signals.html',
+  styleUrl: './add-recipe-signals.css',
 })
-export class AddRecipe {
-  private fb = inject(FormBuilder);
+export class AddRecipeSignals {
   private router = inject(Router);
   private recipeService = inject(RecipeService);
 
   protected ingredients = signal<Ingredient[]>([]);
 
-  protected recipeForm = this.fb.group({
-    name: [''],
-    authorEmail: [''],
-    description: [''],
-    isFavorite: [false],
-    imgUrl: [''],
+  protected readonly recipeModel = signal({
+    name: '',
+    authorEmail: '',
+    description: '',
+    isFavorite: false,
+    imgUrl: '',
+  });
+  protected readonly recipeForm = form(this.recipeModel, (schemaPath) => {
+    required(schemaPath.name, { message: 'Name is required' });
+    required(schemaPath.authorEmail, { message: 'Author email is required' });
+    required(schemaPath.description, { message: 'Description is required' });
+    required(schemaPath.imgUrl, { message: 'Image URL is required' });
   });
 
   protected addIngredient(
@@ -50,9 +55,10 @@ export class AddRecipe {
     this.ingredients.update((current) => current.filter((_, i) => i !== index));
   }
 
-  protected onSubmit() {
+  protected onSubmit(event: Event) {
+    event.preventDefault();
     const nextId = this.recipeService.getNextId();
-    const formValue = this.recipeForm.value;
+    const formValue = this.recipeModel();
     const recipe = {
       ...formValue,
       id: nextId,
